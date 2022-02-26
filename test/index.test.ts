@@ -1,59 +1,55 @@
 import { test, assert } from "vitest"
-import RentCalculator from "../src"
+import { calculateAverageBaseRate } from "../src"
 
-test("Free Months greater than Lease Term", () => {
-  const rentCalculator = new RentCalculator();
-  assert.equal(rentCalculator.calculateNetEffectiveBaseRate(60, 100, 0, 'Flat', 100, 90, 0), 0)
+test("Escalation - Flat (None)", () => {
+  assert.equal(calculateAverageBaseRate(24, 100, "Flat", 0, 0), 100)
 })
 
-test("Number of free months is greater than 1 year", () => {
-  const rentCalculator = new RentCalculator();
-  assert.equal(rentCalculator.calculateNetEffectiveBaseRate(24, 100, 10, 'Percent', 100, 23, 0), 4.58)
-})
-
-test("Free Month", () => {
-  const rentCalculator = new RentCalculator();
-  assert.equal(rentCalculator.calculateNetEffectiveBaseRate(60, 100, 0, 'Flat', 100, 1, 0), 98.33)
-})
-
-test("Escalation - Flat", () => {
-  const rentCalculator = new RentCalculator();
-  assert.equal(rentCalculator.calculateNetEffectiveBaseRate(60, 100, 0, 'Flat', 100, 0, 0), 100)
-})
-
-test("Escalation - Flat with value", () => {
-  const rentCalculator = new RentCalculator();
-  assert.equal(rentCalculator.calculateNetEffectiveBaseRate(60, 100, 100, 'Flat', 100, 0, 0), 100)
-})
-
-test("Escalation - Amount", () => {
-  const rentCalculator = new RentCalculator();
-  assert.equal(rentCalculator.calculateNetEffectiveBaseRate(24, 100, 10, 'Amount', 100, 0, 0), 105)
-})
-
-test("Escalation - Amount with free months", () => {
-  const rentCalculator = new RentCalculator();
-  assert.equal(rentCalculator.calculateNetEffectiveBaseRate(24, 100, 10, 'Amount', 100, 12, 0), 55)
-})
-
-test("Escalation - Amount with free months with TI", () => {
-  const rentCalculator = new RentCalculator();
-  assert.equal(rentCalculator.calculateNetEffectiveBaseRate(24, 100, 10, 'Amount', 100, 12, 10), 50)
+test("Escalation - Flat with escalationValue that should have no effect", () => {
+  assert.equal(calculateAverageBaseRate(60, 100, "Flat", 100, 0), 100)
 })
 
 test("Escalation - Percent", () => {
-  const rentCalculator = new RentCalculator();
-  assert.equal(rentCalculator.calculateNetEffectiveBaseRate(24, 100, 10, 'Percent', 100, 0, 0), 105)
+  assert.equal(calculateAverageBaseRate(24, 100, "Percent", 10, 0), 105)
+})
+
+test("Escalation - Percent with escalationValue that shoule cause no escalation", () => {
+  assert.equal(calculateAverageBaseRate(24, 100, "Percent", 0, 0), 100)
+})
+
+test("Number of free months is greater than 1 year", () => {
+  assert.equal(calculateAverageBaseRate(24, 100, "Percent", 10, 23), 4.58)
+})
+
+test("Free Month", () => {
+  assert.equal(calculateAverageBaseRate(60, 100, "Flat", 0, 1), 98.33)
+})
+
+
+test("Escalation - Amount", () => {
+  assert.equal(calculateAverageBaseRate(24, 100, "Amount", 10, 0), 105)
+})
+
+test("Escalation - Amount with free months", () => {
+  assert.equal(calculateAverageBaseRate(60, 100, "Flat", 100, 0), 100)
 })
 
 test("Escalation - Percent with with free months", () => {
-  const rentCalculator = new RentCalculator();
-  assert.equal(rentCalculator.calculateNetEffectiveBaseRate(24, 100, 10, 'Percent', 100, 12, 0), 55)
+  assert.equal(calculateAverageBaseRate(24, 100, "Percent", 10, 12), 55)
 })
 
-test("Escalation - Percent with with free months with TI", () => {
-  const rentCalculator = new RentCalculator();
-  assert.equal(rentCalculator.calculateNetEffectiveBaseRate(24, 100, 10, 'Percent', 100, 12, 10), 50)
+test("Free Months greater than Lease Term", () => {
+  assert.equal(calculateAverageBaseRate(24, 100, "Flat", 0, 30), 0)
 })
+
+// test("Escalation - Percent with with free months with TI", () => {
+//   assert.equal(myAverageBaseRate(24, 100, "Percent", 10, 12), 50)
+// })
+
+// test("Escalation - Amount with free months with TI", () => {
+//   //TODO add TI
+//    assert.equal(myAverageBaseRate(24, 100, "Amount", 10, 12), 50)
+//    // assert.equal(rentCalculator.calculateNetEffectiveBaseRate(24, 100, 10, 'Amount', 100, 12, 10), 50)
+// })
 
 // Irregular doesnt have a function is this just not calculated? -mf
