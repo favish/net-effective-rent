@@ -3,7 +3,7 @@ import {
   calculateTIRate,
   calculateAverageBaseRate,
   calculateNetEffectiveBaseRate,
-} from "../src"
+} from "../src/calculators"
 
 test("NetEffectiveBaseRate - Simple unit test", () => {
   assert.equal(calculateNetEffectiveBaseRate(100, 17.5), 82.5)
