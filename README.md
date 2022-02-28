@@ -2,13 +2,13 @@
 
 ---
 
-# my-ts-lib
+# net-effective-rate
 
-[![npm version](https://badgen.net/npm/v/my-ts-lib)](https://npm.im/my-ts-lib) [![npm downloads](https://badgen.net/npm/dm/my-ts-lib)](https://npm.im/my-ts-lib)
+[![npm version](https://badgen.net/npm/v/net-effective-rate)](https://npm.im/net-effective-rate) [![npm downloads](https://badgen.net/npm/dm/net-effective-rate)](https://npm.im/net-effective-rate)
 
 ## Using this template
 
-- Search `my-ts-lib` and replace it with your custom package name.
+- Search `net-effective-rate` and replace it with your custom package name.
 - Search `egoist` and replace it with your name.
 
 Features:
@@ -20,15 +20,14 @@ Features:
 
 To skip CI (GitHub action), add `skip-ci` to commit message. To skip release, add `skip-release` to commit message.
 
+## TODO
+- Automate ci test on github and npm registry push (https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs-or-python)
+
 ## Install
 
 ```bash
-npm i my-ts-lib
+npm i net-effective-rate
 ```
-
-## Sponsors
-
-[![sponsors](https://sponsors-images.egoist.sh/sponsors.svg)](https://github.com/sponsors/egoist)
 
 ## License
 

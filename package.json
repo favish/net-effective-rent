@@ -1,7 +1,7 @@
 {
-  "name": "my-ts-lib",
+  "name": "net-effective-rate",
   "version": "0.0.0",
-  "description": "My awesome typescript library",
+  "description": "Calculate base, ti and net effective rates using well known commercial real estate formulas.",
   "publishConfig": {
     "access": "public"
   },
