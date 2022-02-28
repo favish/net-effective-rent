@@ -7,7 +7,7 @@ export function calculateAverageBaseRate(
     escalationValue: number,
     numOfFreeMonths: number,
 ) {
-    let totalRateThing = 0;
+    let totalRate = 0;
     let currentBaseRate = baseRate;
 
     // Lets iterate through every month in the term and just add up the costs.
@@ -16,9 +16,9 @@ export function calculateAverageBaseRate(
         // Pay rent first then increase rent because thats how it works in real life.
         // If we have free months and were still in them don't pay rent
         if (numOfFreeMonths !== 0 && i <= numOfFreeMonths) {
-            totalRateThing += 0;
+            totalRate += 0;
         } else {
-            totalRateThing += currentBaseRate;
+            totalRate += currentBaseRate;
         }
 
         // Increase the rent each year if its not flat or irregular escalation which are ignored
@@ -37,19 +37,21 @@ export function calculateAverageBaseRate(
 
 
     }
-    // helper function for clarity
 
-    return round2digits(totalRateThing / leaseTerm);
+    return round2digits(totalRate / leaseTerm);
 }
 
 export function calculateTIRate(
     leaseTerm: number,
-    averageBaseRate: number,
     tiAllowance: number
 ) {
+    if (leaseTerm === 0) {
+        return 0;
+    }
+
     // Avg TI RATE = SQFT * TI / Terms
     return (
-        round2digits(averageBaseRate - tiAllowance / (leaseTerm / 12))
+        round2digits(tiAllowance / (leaseTerm / 12))
     );
 }
 
@@ -58,8 +60,8 @@ export function calculateNetEffectiveBaseRate(
     TIRate: number
 ) {
 
-    // If there is no base rate it seems silly to go negative right?
-    if (baseRate === 0) {
+    // If there is no base rate or ti is negative lets stop the madness
+    if (baseRate === 0 || TIRate >= baseRate) {
         return 0;
     }
 

@@ -25,7 +25,6 @@ test("Free Month", () => {
   assert.equal(calculateAverageBaseRate(60, 100, "Flat", 0, 1), 98.33)
 })
 
-
 test("Escalation - Amount", () => {
   assert.equal(calculateAverageBaseRate(24, 100, "Amount", 10, 0), 105)
 })
