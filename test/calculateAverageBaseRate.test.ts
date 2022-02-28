@@ -51,4 +51,5 @@ test("Free Months greater than Lease Term", () => {
 //    // assert.equal(rentCalculator.calculateNetEffectiveBaseRate(24, 100, 10, 'Amount', 100, 12, 10), 50)
 // })
 
+
 // Irregular doesnt have a function is this just not calculated? -mf
