@@ -6,6 +6,7 @@ import {
   calculateAverageBaseRate,
   calculateTIRate,
   calculateIsEstimated,
+  calculateFullServiceRate,
 } from "./calculators"
 import { EscalationTypeUnion } from "./types"
 
@@ -14,14 +15,15 @@ export * from "./calculators"
 export function generateComputedFields(data: {
   baseRate: number
   commencementDate: string
-  leaseTerm: number
-  escalationType: EscalationTypeUnion | ""
-  freeRentType: string
-  transactionType: string | number | null
-  leaseType: number
-  escalationValue: number
   freeMonths: number
+  escalationType: EscalationTypeUnion | ""
+  escalationValue: number
+  freeRentType: string
+  leaseTerm: number
+  leaseType: number
+  opex: number
   tiAllowance: number
+  transactionType: string | number | null
   /** estimated fields **/
   executionDateEstimated: boolean
   commencementDateEstimated: boolean
@@ -81,11 +83,17 @@ export function generateComputedFields(data: {
     tiRate,
   )
 
+  const fullServiceRate = calculateFullServiceRate({
+    opex: data?.opex,
+    baseRate: data?.baseRate,
+  })
+
   return {
     isActive,
     isEstimated,
     isIncomplete,
     expiration_date,
     netEffectiveBaseRate,
+    fullServiceRate,
   }
 }

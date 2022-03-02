@@ -1,6 +1,6 @@
 {
   "name": "net-effective-rate",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Calculate base, ti and net effective rates using well known commercial real estate formulas.",
   "publishConfig": {
     "access": "public"
@@ -34,4 +34,5 @@
   "dependencies": {
     "moment": "^2.29.1"
   }
+
 }

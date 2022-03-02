@@ -138,3 +138,16 @@ export function calculateIsEstimated(fields: {
     fields.tiAllowanceEstimated
   )
 }
+
+export function calculateFullServiceRate(fields: {
+  opex: number
+  baseRate: number
+}) {
+  if (isNaN(fields.opex) || isNaN(fields.baseRate)) {
+    return null
+  }
+
+  return (
+    (Math.floor(fields.opex * 100) + Math.floor(fields.baseRate * 100)) / 100
+  )
+}
