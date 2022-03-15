@@ -70,18 +70,52 @@ export function generateComputedFields(data: {
     leaseTerm: data?.leaseTerm,
   })
 
-  const avgBaseRate = calculateAverageBaseRate(
-    data?.leaseTerm,
-    data.baseRate,
-    data.escalationType,
-    data.escalationValue,
-    data.freeMonths,
-  ) // Should equal 100
-  const tiRate = calculateTIRate(data.leaseTerm, data.tiAllowance) // Should equal 17.5
-  const netEffectiveBaseRate = calculateNetEffectiveBaseRate(
-    avgBaseRate,
-    tiRate,
-  )
+  // const avgBaseRate = calculateAverageBaseRate(
+  //   data?.leaseTerm,
+  //   data.baseRate,
+  //   data.escalationType,
+  //   data.escalationValue,
+  //   data.freeMonths,
+  // ) // Should equal 100
+  // const tiRate = calculateTIRate(data.leaseTerm, data.tiAllowance) // Should equal 17.5
+  // const netEffectiveBaseRate = calculateNetEffectiveBaseRate(
+  //   avgBaseRate,
+  //   tiRate,
+  // )
+
+  const netEffectiveBaseRate = () => {
+    if (
+      data?.leaseTerm === null ||
+      data?.baseRate === null ||
+      data?.escalationValue === null ||
+      data?.escalationType === null ||
+      data?.freeMonths === null ||
+      data?.tiAllowance === null
+    ) {
+      return null
+    }
+
+    if (
+      typeof data?.leaseTerm === "undefined" ||
+      typeof data?.baseRate === "undefined" ||
+      typeof data?.escalationValue === "undefined" ||
+      typeof data?.escalationType === "undefined" ||
+      typeof data?.freeMonths === "undefined" ||
+      typeof data?.tiAllowance === "undefined"
+    ) {
+      const avgBaseRate = calculateAverageBaseRate(
+        data?.leaseTerm,
+        data.baseRate,
+        data.escalationType,
+        data.escalationValue,
+        data.freeMonths,
+      ) // Should equal 100
+      const tiRate = calculateTIRate(data.leaseTerm, data.tiAllowance) // Should equal 17.5
+      return calculateNetEffectiveBaseRate(avgBaseRate, tiRate)
+    } else {
+      return null
+    }
+  }
 
   const fullServiceRate = calculateFullServiceRate({
     opex: data?.opex,
