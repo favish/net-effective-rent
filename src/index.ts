@@ -73,20 +73,20 @@ export function generateComputedFields(data: {
   function handleNetEffective() {
     const castedData = data as any
     if (
-      castedData.lease_term === null ||
-      castedData.base_rate === null ||
-      castedData.escalation_value === null ||
-      castedData.escalation_type === null ||
-      castedData.size_sf === null ||
-      castedData.free_months === null ||
-      castedData.ti_allowance === null ||
-      typeof castedData.lease_term === "undefined" ||
-      typeof castedData.base_rate === "undefined" ||
-      typeof castedData.escalation_value === "undefined" ||
-      typeof castedData.escalation_type === "undefined" ||
-      typeof castedData.size_sf === "undefined" ||
-      typeof castedData.free_months === "undefined" ||
-      typeof castedData.ti_allowance === "undefined"
+      castedData.leaseTerm === null ||
+      castedData.baseRate === null ||
+      castedData.escalationValue === null ||
+      castedData.escalationType === null ||
+      castedData.sizeSf === null ||
+      castedData.freeMonths === null ||
+      castedData.tiAllowance === null ||
+      typeof castedData.leaseTerm === "undefined" ||
+      typeof castedData.baseRate === "undefined" ||
+      typeof castedData.escalationValue === "undefined" ||
+      typeof castedData.escalationType === "undefined" ||
+      typeof castedData.sizeSf === "undefined" ||
+      typeof castedData.freeMonths === "undefined" ||
+      typeof castedData.tiAllowance === "undefined"
     ) {
       return null
     }
