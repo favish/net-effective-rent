@@ -70,18 +70,41 @@ export function generateComputedFields(data: {
     leaseTerm: data?.leaseTerm,
   })
 
-  const avgBaseRate = calculateAverageBaseRate(
-    data?.leaseTerm,
-    data.baseRate,
-    data.escalationType,
-    data.escalationValue,
-    data.freeMonths,
-  ) // Should equal 100
-  const tiRate = calculateTIRate(data.leaseTerm, data.tiAllowance) // Should equal 17.5
-  const netEffectiveBaseRate = calculateNetEffectiveBaseRate(
-    avgBaseRate,
-    tiRate,
-  )
+  function handleNetEffective() {
+    const castedData = data as any
+    if (
+      castedData.lease_term === null ||
+      castedData.base_rate === null ||
+      castedData.escalation_value === null ||
+      castedData.escalation_type === null ||
+      castedData.size_sf === null ||
+      castedData.free_months === null ||
+      castedData.ti_allowance === null ||
+      typeof castedData.lease_term === "undefined" ||
+      typeof castedData.base_rate === "undefined" ||
+      typeof castedData.escalation_value === "undefined" ||
+      typeof castedData.escalation_type === "undefined" ||
+      typeof castedData.size_sf === "undefined" ||
+      typeof castedData.free_months === "undefined" ||
+      typeof castedData.ti_allowance === "undefined"
+    ) {
+      return null
+    }
+    const avgBaseRate = calculateAverageBaseRate(
+      data?.leaseTerm,
+      data.baseRate,
+      data.escalationType,
+      data.escalationValue,
+      data.freeMonths,
+    ) // Should equal 100
+    const tiRate = calculateTIRate(data.leaseTerm, data.tiAllowance) // Should equal 17.5
+    const netEffectiveBaseRate = calculateNetEffectiveBaseRate(
+      avgBaseRate,
+      tiRate,
+    )
+
+    return netEffectiveBaseRate
+  }
 
   const fullServiceRate = calculateFullServiceRate({
     opex: data?.opex,
@@ -93,7 +116,7 @@ export function generateComputedFields(data: {
     isEstimated,
     isIncomplete,
     expiration_date,
-    netEffectiveBaseRate,
+    netEffectiveBaseRate: handleNetEffective(),
     fullServiceRate,
   }
 }

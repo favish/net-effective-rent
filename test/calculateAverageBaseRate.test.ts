@@ -41,6 +41,10 @@ test("Free Months greater than Lease Term", () => {
   assert.equal(calculateAverageBaseRate(24, 100, "Flat", 0, 30), 0)
 })
 
+test("Free Months greater than Lease Term", () => {
+  assert.equal(calculateAverageBaseRate(7, 6.06, "Flat", 0, 0), 6.06)
+})
+
 // test("Escalation - Percent with with free months with TI", () => {
 //   assert.equal(myAverageBaseRate(24, 100, "Percent", 10, 12), 50)
 // })
@@ -50,6 +54,5 @@ test("Free Months greater than Lease Term", () => {
 //    assert.equal(myAverageBaseRate(24, 100, "Amount", 10, 12), 50)
 //    // assert.equal(rentCalculator.calculateNetEffectiveBaseRate(24, 100, 10, 'Amount', 100, 12, 10), 50)
 // })
-
 
 // Irregular doesnt have a function is this just not calculated? -mf
