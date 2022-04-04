@@ -77,15 +77,11 @@ export function generateComputedFields(data: {
       castedData.baseRate === null ||
       castedData.escalationValue === null ||
       castedData.escalationType === null ||
-      castedData.sizeSf === null ||
-      castedData.freeMonths === null ||
       castedData.tiAllowance === null ||
       typeof castedData.leaseTerm === "undefined" ||
       typeof castedData.baseRate === "undefined" ||
       typeof castedData.escalationValue === "undefined" ||
       typeof castedData.escalationType === "undefined" ||
-      typeof castedData.sizeSf === "undefined" ||
-      typeof castedData.freeMonths === "undefined" ||
       typeof castedData.tiAllowance === "undefined"
     ) {
       return null
