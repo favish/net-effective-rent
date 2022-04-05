@@ -72,20 +72,24 @@ export function generateComputedFields(data: {
 
   function handleNetEffective() {
     const castedData = data as any
+    // i didnt check for falsy because values can be 0 and still need to calculate
     if (
       castedData.leaseTerm === null ||
       castedData.baseRate === null ||
       castedData.escalationValue === null ||
       castedData.escalationType === null ||
       castedData.tiAllowance === null ||
+      castedData.freeMonths === null ||
       typeof castedData.leaseTerm === "undefined" ||
       typeof castedData.baseRate === "undefined" ||
       typeof castedData.escalationValue === "undefined" ||
       typeof castedData.escalationType === "undefined" ||
+      typeof castedData.freeMonths === "undefined" ||
       typeof castedData.tiAllowance === "undefined"
     ) {
       return null
     }
+
     const avgBaseRate = calculateAverageBaseRate(
       data?.leaseTerm,
       data.baseRate,
