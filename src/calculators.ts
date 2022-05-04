@@ -1,5 +1,5 @@
-import moment from "moment"
 import type { EscalationTypeUnion } from "./types"
+import dayjs from "dayjs"
 
 const round2digits = (num: number) => Math.round(num * 100) / 100
 
@@ -74,7 +74,7 @@ export function calculateExpirationDate(fields: {
     return null
   }
 
-  return moment(fields.commencementDate)
+  return dayjs(fields.commencementDate)
     .add(fields.leaseTerm || 0, "M")
     .format("YYYY-MM-DD")
 }
@@ -103,14 +103,19 @@ export function calculateIsIncomplete(fields: {
   )
 }
 
-export function calculateIsActive(fields: {
+export function calculateIsActive({
+  commencementDate,
+  leaseTerm,
+}: {
   commencementDate: string
   leaseTerm: number
 }): boolean {
-  const expirationDate = moment(fields.commencementDate, "YYYY-MM-DD")
-    .add(fields.leaseTerm || 0, "M")
-    .format("YYYY-MM-DD")
-  return moment(expirationDate, "YYYY-MM-DD").diff(moment.now(), "days") > 0
+  const expirationDate = calculateExpirationDate({
+    commencementDate,
+    leaseTerm,
+  })
+
+  return dayjs(expirationDate, "YYYY-MM-DD").diff(dayjs(), "days") > 0
 }
 
 export function calculateIsEstimated(fields: {
