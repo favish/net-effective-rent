@@ -76,6 +76,7 @@ export function calculateExpirationDate(fields: {
 
   return dayjs(fields.commencementDate)
     .add(fields.leaseTerm || 0, "M")
+    .subtract(1, "d") // tenants have to be out 1 day before exp
     .format("YYYY-MM-DD")
 }
 
